@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <HeaderComp @getQuery="requestCombiner"/>
-    <MainComp :movies = "movies"/>
+    <MainComp :movies = "movies" :series = "series"/>
   </div>
 </template>
 
@@ -19,21 +19,36 @@ export default {
   },
   data() {
     return {
-      endpoint : "https://api.themoviedb.org/3/search/movie?api_key=a7b98ee26673d183ad161034fac46e74&",
-      request : "",
-      movies : []
+      endpoint : "https://api.themoviedb.org/3/search/",
+      key: "?api_key=a7b98ee26673d183ad161034fac46e74&",
+      Mrequest : "",
+      Srequest : "",
+      movies : [],
+      series : [],
     }
   },
   methods: {
     //requestCombiner: mette insieme la richiesta ricevuta dagli input nella header e richiama le api
     requestCombiner(search) {
-      this.request = this.endpoint + "&query=" + search;
-      this.apiCall();
+      this.Mrequest = this.endpoint + "movie" + this.key + "&query=" + search;
+      this.Srequest = this.endpoint + "tv" + this.key + "&query=" + search;
+      this.movieCall();
+      this.seriesCall();
     },
-    apiCall() {
-      axios.get(this.request)
+    movieCall() {
+      axios.get(this.Mrequest)
       .then((response) => {
         this.movies = response.data.results;
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      });
+    },
+    seriesCall() {
+      axios.get(this.Srequest)
+      .then((response) => {
+        this.series = response.data.results;
       })
       .catch(function (error) {
         // handle error
