@@ -5,7 +5,7 @@
         <img src="../../assets/img/placeholder.png" :alt="title" v-else>
     <div class="info">
         <h1>{{title}}</h1>
-        <h3>T.O {{originalTitle}}</h3>
+        <h3>T.O. {{originalTitle}}</h3>
         <lang-flag :iso="language" :squared="false" class="flag"/>
         <font-awesome-icon  v-for="i in 5" :key="i" :icon="(i < vote)? 'fa-star fa-solid' : 'fa-star fa-regular'" />
     </div>

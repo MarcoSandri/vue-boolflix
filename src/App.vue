@@ -19,24 +19,26 @@ export default {
   },
   data() {
     return {
-      endpoint : "https://api.themoviedb.org/3/search/",
-      key: "?api_key=a7b98ee26673d183ad161034fac46e74&",
-      Mrequest : "",
-      Srequest : "",
+      key: "a7b98ee26673d183ad161034fac46e74",
       movies : [],
-      series : [],
+      series : []
     }
   },
   methods: {
     //requestCombiner: mette insieme la richiesta ricevuta dagli input nella header e richiama le api
     requestCombiner(search) {
-      this.Mrequest = this.endpoint + "movie" + this.key + "&query=" + search + "&language=it-IT";
-      this.Srequest = this.endpoint + "tv" + this.key + "&query=" + search + "&language=it-IT";
-      this.movieCall();
-      this.seriesCall();
+      const parametri = {
+        params: {
+        'api_key' : this.key,
+        'query' : search,
+        'language' : "it-IT"
+        }
+      };
+      this.movieCall(parametri);
+      this.seriesCall(parametri);
     },
-    movieCall() {
-      axios.get(this.Mrequest)
+    movieCall(params) {
+      axios.get('https://api.themoviedb.org/3/search/movie/', params)
       .then((response) => {
         this.movies = response.data.results;
       })
@@ -45,8 +47,8 @@ export default {
         console.log(error);
       });
     },
-    seriesCall() {
-      axios.get(this.Srequest)
+    seriesCall(params) {
+      axios.get('https://api.themoviedb.org/3/search/tv/', params)
       .then((response) => {
         this.series = response.data.results;
       })
