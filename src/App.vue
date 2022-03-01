@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <HeaderComp @getQuery="requestCombiner"/>
-    <MainComp :movies = "movies" :series = "series"/>
+    <HeaderComp @getQuery="requestCombiner" class="header" />
+    <MainComp :movies = "movies" :series = "series" class="main" />
   </div>
 </template>
 
@@ -30,8 +30,8 @@ export default {
   methods: {
     //requestCombiner: mette insieme la richiesta ricevuta dagli input nella header e richiama le api
     requestCombiner(search) {
-      this.Mrequest = this.endpoint + "movie" + this.key + "&query=" + search;
-      this.Srequest = this.endpoint + "tv" + this.key + "&query=" + search;
+      this.Mrequest = this.endpoint + "movie" + this.key + "&query=" + search + "&language=it-IT";
+      this.Srequest = this.endpoint + "tv" + this.key + "&query=" + search + "&language=it-IT";
       this.movieCall();
       this.seriesCall();
     },
