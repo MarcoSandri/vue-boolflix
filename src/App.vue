@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <HeaderComp @getQuery="requestCombiner" class="header" />
-    <MainComp :movies = "movies" :series = "series" class="main" />
+    <MainComp :movies = "movies" :series = "series" class="main" :movieGenres="movieGenres" :serieGenres="serieGenres"/>
   </div>
 </template>
 
@@ -23,6 +23,8 @@ export default {
       key: "a7b98ee26673d183ad161034fac46e74",
       movies : [],
       series : [],
+      movieGenres: [],
+      serieGenres: []
     }
   },
 
@@ -42,16 +44,14 @@ export default {
       };
       this.movieCall(parametri);
       this.seriesCall(parametri);
+      this.genreIdCall();
     },
 
     //Ricerca i film
     movieCall(params) {
       axios.get('https://api.themoviedb.org/3/search/movie/', params)
       .then((response) => {
-        let moviesTemp = [];
-        moviesTemp = response.data.results;
-        this.addActors('movie', moviesTemp);
-        this.movies = moviesTemp;
+        this.movies = response.data.results;
       })
       .catch(function (error) {
         // handle error
@@ -63,37 +63,34 @@ export default {
     seriesCall(params) {
       axios.get('https://api.themoviedb.org/3/search/tv/', params)
       .then((response) => {
-        let seriesTemp = [];
-        seriesTemp = response.data.results
-        this.addActors('tv', seriesTemp);
-        this.series = seriesTemp;
+        this.series = response.data.results;
       })
       .catch(function (error) {
         // handle error
         console.log(error);
       });
     },
-
-    //Ricerca gli attori
-    actorCall(id, type) {
-      let ActorsArray  = [];
-      axios.get(`https://api.themoviedb.org/3/${type}/${id}/credits?api_key=a7b98ee26673d183ad161034fac46e74`)
+    
+    genreIdCall() {
+      axios.get('https://api.themoviedb.org/3/genre/tv/list?api_key=a7b98ee26673d183ad161034fac46e74&language=it-IT')
       .then((response) => {
-        for(let i = 0; i < 5; i++) {
-          ActorsArray.push(response.data.cast[i].name);
-        }
+        this.serieGenres = response.data.genres;
+        console.log(this.serieGenres);
       })
       .catch(function (error) {
         // handle error
         console.log(error);
       });
-      return ActorsArray;
-    },
 
-    addActors(type, array) {
-      for(let i = 0; i < array.length; i++) {
-        array[i].actors = this.actorCall(array[i].id, type)
-      }
+      axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=a7b98ee26673d183ad161034fac46e74&language=it-IT')
+      .then((response) => {
+        this.movieGenres = response.data.genres;
+        console.log(this.serieGenres);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      });
     }
   }
 

@@ -32,7 +32,7 @@ const axios = require('axios');
 import LangFlag from 'vue-lang-code-flags';
 
 export default {
-    name: "MovieCard",
+    name: "SerieCard",
     data() {
         return {
             genreName : [],
@@ -67,9 +67,9 @@ export default {
                 
             }
         },
-        
+
         getActors() {
-            axios.get(`https://api.themoviedb.org/3/movie/${this.filmId}/credits?api_key=a7b98ee26673d183ad161034fac46e74`)
+            axios.get(`https://api.themoviedb.org/3/tv/${this.filmId}/credits?api_key=a7b98ee26673d183ad161034fac46e74`)
             .then((response) => {
                 for(let i = 0; i < 5; i++) {
                     this.actorsArray.push(response.data.cast[i].name);
@@ -140,10 +140,11 @@ export default {
                 .actors {
                     font-size: 0.75rem;
                 }
-                
+
                 .genres {
                     color: gray;
                     font-size: 0.75rem;
+
                 }
             }
         }

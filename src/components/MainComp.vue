@@ -12,12 +12,15 @@
                 :originalTitle="movie.original_title" 
                 :language="movie.original_language" 
                 :vote="Math.round(movie.vote_average)/2"
-                :actors="movie.actors" />
+                :actors="movie.actors"
+                :id="movie.genre_ids"
+                :genres="movieGenres"
+                :filmId="movie.id"/>/>
             </section>
 
             <h1 class="sectiontitle" v-if="series.length > 0">SERIE</h1>
             <section class="series">
-                <MovieCard 
+                <SerieCard 
                 v-for="(serie,index) in series" 
                 :key="index"
                 :image="serie.poster_path"
@@ -25,7 +28,10 @@
                 :originalTitle="serie.original_name" 
                 :language="serie.original_language" 
                 :vote="Math.round(serie.vote_average/2)"
-                :actors="serie.actors"/>
+                :actors="serie.actors"
+                :id="serie.genre_ids"
+                :genres="serieGenres"
+                :filmId="serie.id"/>
             </section>
       </div>
   </main>
@@ -33,15 +39,19 @@
 
 <script>
 import MovieCard from './partials/MovieCard.vue';
+import SerieCard from './partials/SerieCard.vue';
 
 export default {
     name: "MainComp",
     components: {
-        MovieCard
+        MovieCard,
+        SerieCard
     },
     props: {
         movies: Array,
-        series: Array
+        series: Array,
+        movieGenres: Array,
+        serieGenres: Array
     }
 }
 </script>
