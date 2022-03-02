@@ -1,7 +1,8 @@
 <template>
   <main>
       <div class="container">
-                <h1 class="sectiontitle" v-if="movies.length > 0">FILM</h1>
+
+            <h1 class="sectiontitle" v-if="movies.length > 0">FILM</h1>
             <section class="movies">
                 <MovieCard
                 v-for="(movie,index) in movies" 
@@ -10,9 +11,11 @@
                 :title="movie.title" 
                 :originalTitle="movie.original_title" 
                 :language="movie.original_language" 
-                :vote="Math.round(movie.vote_average)/2"/>
+                :vote="Math.round(movie.vote_average)/2"
+                :actors="movie.actors" />
             </section>
-                <h1 class="sectiontitle" v-if="series.length > 0">SERIE</h1>
+
+            <h1 class="sectiontitle" v-if="series.length > 0">SERIE</h1>
             <section class="series">
                 <MovieCard 
                 v-for="(serie,index) in series" 
@@ -21,7 +24,8 @@
                 :title="serie.name" 
                 :originalTitle="serie.original_name" 
                 :language="serie.original_language" 
-                :vote="Math.round(serie.vote_average/2)"/>
+                :vote="Math.round(serie.vote_average/2)"
+                :actors="serie.actors"/>
             </section>
       </div>
   </main>

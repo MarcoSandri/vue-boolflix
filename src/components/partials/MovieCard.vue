@@ -8,6 +8,9 @@
         <h3>T.O. {{originalTitle}}</h3>
         <lang-flag :iso="language" :squared="false" class="flag"/>
         <font-awesome-icon  v-for="i in 5" :key="i" :icon="(i < vote)? 'fa-star fa-solid' : 'fa-star fa-regular'" />
+        <div>
+            <span class="actors" v-for="(actor,index) in actors" :key="index" >{{actor}} </span>
+        </div>
     </div>
     </div>
 
@@ -31,7 +34,8 @@ export default {
         originalTitle: String,
         language: String,
         vote: Number,
-        image: String
+        image: String,
+        actors: Array
     },
     components: {
         LangFlag
@@ -67,7 +71,7 @@ export default {
             }
 
             .info {
-                padding: 1rem 0 2rem 0.5rem;
+                padding: 1rem 0.5rem 2rem 0.5rem;
                 width: 100%;
                 position: absolute;
                 bottom: 0;
@@ -85,6 +89,11 @@ export default {
                 
                 .flag {
                     margin-right: 1rem;
+                    margin-bottom: 0.5rem;
+                }
+
+                .actors {
+                    font-size: 0.75rem;
                 }
             }
         }
