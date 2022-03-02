@@ -15,7 +15,7 @@
                 :actors="movie.actors"
                 :id="movie.genre_ids"
                 :genres="movieGenres"
-                :filmId="movie.id"/>/>
+                :filmId="movie.id"/>
             </section>
 
             <h1 class="sectiontitle" v-if="series.length > 0">SERIE</h1>

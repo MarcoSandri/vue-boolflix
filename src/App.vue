@@ -42,6 +42,8 @@ export default {
         'language' : "it-IT"
         }
       };
+      this.movies = [];
+      this.series = [];
       this.movieCall(parametri);
       this.seriesCall(parametri);
       this.genreIdCall();

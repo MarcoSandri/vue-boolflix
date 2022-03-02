@@ -8,12 +8,8 @@
         <h3>T.O. {{originalTitle}}</h3>
         <lang-flag :iso="language" :squared="false" class="flag"/>
         <font-awesome-icon  v-for="i in 5" :key="i" :icon="(i < vote)? 'fa-star fa-solid' : 'fa-star fa-regular'" />
-        <div>
-            <span class="actors" v-for="(actor, index) in actorsArray" :key="index" >{{actor}} </span>
-        </div>
-        <div>
-            <span class="genres" v-for="(genre, index) in genreName" :key="index" >{{genre}} </span>
-        </div>
+        <div class="actors">{{actorsArray.join(', ')}}</div>
+        <div class="genres">{{genreName.join(', ')}}</div>
     </div>
     </div>
 
@@ -134,17 +130,16 @@ export default {
                 
                 .flag {
                     margin-right: 1rem;
-                    margin-bottom: 0.5rem;
                 }
 
                 .actors {
+                    margin: 0.5rem 0;
                     font-size: 0.75rem;
                 }
-
+                
                 .genres {
                     color: gray;
                     font-size: 0.75rem;
-
                 }
             }
         }
